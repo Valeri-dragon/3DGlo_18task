@@ -1,13 +1,10 @@
 const timer = (deadline) => {
-  const l = (log) => {
-    console.log(log);
-  };
   const timer = document.getElementById("timer");
   const timerHours = document.getElementById("timer-hours");
   const timerMinutes = document.getElementById("timer-minutes");
   const timerSeconds = document.getElementById("timer-seconds");
   let timerDays = document.createElement("p");
-
+  let idInterval;
   const getTimeRemaining = () => {
     let dateNow = new Date().getTime();
     let dateStop = Date.parse(deadline);
@@ -27,14 +24,21 @@ const timer = (deadline) => {
 
   const updateClock = () => {
     let getTime = getTimeRemaining();
-    timerHours.textContent = getTime.hours;
-    timerMinutes.textContent = getTime.minutes;
-    timerSeconds.textContent = getTime.seconds;
+    const addZero = (n) => (n < 10 ? "0" + n : n);
+    timerHours.textContent = addZero(getTime.hours);
+    timerMinutes.textContent = addZero(getTime.minutes);
+    timerSeconds.textContent = addZero(getTime.seconds);
     timerDays.setAttribute("id", "timer-days");
     timerDays.textContent = `${getTime.days} Дн.`;
     timer.prepend(timerDays);
+    clearInterval(idInterval);
     if (getTime.timeRemaining > 0) {
-      setTimeout(updateClock, 1000);
+      idInterval = setInterval(updateClock, 1000);
+    } else if (getTime.timeRemaining <= 0) {
+      timerDays.textContent = `0 Дн.`;
+      timerHours.textContent = addZero(0);
+      timerMinutes.textContent = addZero(0);
+      timerSeconds.textContent = addZero(0);
     }
   };
 
