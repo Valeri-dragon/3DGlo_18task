@@ -35,7 +35,7 @@ const forms = () => {
     e.addEventListener("input", (ev) => {
       removeError();
 
-      if (!/[а-я-\s]+/gi.test(ev.target.value)) {
+      if (!/[а-я-\s]+/gi.test(ev.target.value.trim())) {
         str = "Вводите кириллицу, пробел и дефис";
         error(e, str);
       } else {
