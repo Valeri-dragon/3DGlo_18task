@@ -1,16 +1,8 @@
 const forms = () => {
-  const l = (lo) => {
-    console.log(lo);
-  };
-
-  //name="user_name" //type="text"
-  //name="user_email"// type="email"
-  //name="user_phone" //type="tel"
-  //name="user_message" //.mess
-
   const nameInputs = document.querySelectorAll('input[type="text"]');
   const emailInputs = document.querySelectorAll('input[type="email"]');
   const userMessageInput = document.querySelector(".mess");
+  const phoneinputs = document.querySelectorAll('input[type="tel"]');
   let str;
   let span = document.createElement("span");
 
@@ -23,9 +15,9 @@ const forms = () => {
     span.classList.add("error");
     span.style.color = "red";
     span.style.position = `absolute`;
-    span.style.bottom = `89px`;
+    span.style.bottom = `80px`;
     span.style.right = `77px`;
-        span.style.padding = `5px`;
+    span.style.padding = `5px`;
     span.style.background = `#fff`;
     span.textContent = str;
     e.before(span);
@@ -36,7 +28,7 @@ const forms = () => {
       removeError();
 
       if (!/[а-я-\s]+/gi.test(ev.target.value.trim())) {
-        str = "Вводите кириллицу, пробел и дефис";
+        str = "Можно использовать кириллицу, пробел или дефис";
         error(e, str);
       } else {
         removeError();
@@ -47,12 +39,32 @@ const forms = () => {
 
   const validateEmail = (e) => {
     e.addEventListener("input", (ev) => {
-      if (/(([\-\.\w]+)(@)([\w]+\.)+([\w]{2,4}))/gi.test(ev.target.value)) {
+      if (
+        /(([\-\.\_\~\*\'\d\w]+)(@)([\w]+\.)+([\w]{2,4}))/gi.test(
+          ev.target.value
+        )
+      ) {
         removeError();
         ev.target.value;
       } else {
         error(e, str);
-        str = "ведите верные значения";
+        str = "Введите верный e-mail";
+      }
+    });
+  };
+
+  const validatePhone = (e) => {
+    e.addEventListener("input", (ev) => {
+      if (
+        /^((8|\+375|\+7)[\- ]?)?\(?\d{2,3}\)?[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}(([\- ]?\d{1})?[\- ]?\d{1})?$/.test(
+          ev.target.value
+        )
+      ) {
+        removeError();
+        ev.target.value;
+      } else {
+        error(e, str);
+        str = "Номер должен начинаться с +7, 8 или +375";
       }
     });
   };
@@ -66,9 +78,13 @@ const forms = () => {
   emailInputs.forEach((item) => {
     validateEmail(item);
   });
+  
+  phoneinputs.forEach((item) => {
+    validatePhone(item);
+  });
 
-  userMessageInput.addEventListener("input",()=>{
-validateCyrillic(userMessageInput);
-  } );
+  userMessageInput.addEventListener("input", () => {
+    validateCyrillic(userMessageInput);
+  });
 };
 export default forms;
