@@ -30,6 +30,7 @@ const forms = () => {
       if (!/[а-я-\s]+/gi.test(ev.target.value.trim())) {
         str = "Можно использовать кириллицу, пробел или дефис";
         error(e, str);
+         ev.target.value = ev.target.value.replace(/[a-z\s]+/gi,'');
       } else {
         removeError();
         ev.target.value;
@@ -78,7 +79,7 @@ const forms = () => {
   emailInputs.forEach((item) => {
     validateEmail(item);
   });
-  
+
   phoneinputs.forEach((item) => {
     validatePhone(item);
   });
