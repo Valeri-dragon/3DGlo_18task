@@ -1,15 +1,26 @@
 const menu = () => {
-  const menuBtn = document.querySelector(".menu");
+  const body = document.querySelector("body");
   const menu = document.querySelector("menu");
-  const closeBtn = menu.querySelector(".close-btn");
-  const menuItems = menu.querySelectorAll("ul>li>a");
 
   const toggleMenu = () => {
     menu.classList.toggle("active-menu");
   };
-
-  menuItems.forEach((item) => item.addEventListener("click", toggleMenu));
-  menuBtn.addEventListener("click", toggleMenu);
-  closeBtn.addEventListener("click", toggleMenu);
+  const scroll = (e) => {
+    e.preventDefault();
+    const ID = e.target.getAttribute("href").substr(1);
+    document
+      .getElementById(ID)
+      .scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  body.addEventListener("click", (e) => {
+    if (e.target.matches(".close-btn") || e.target.closest(".menu")) {
+      toggleMenu();
+    } else if (e.target.tagName === "A") {
+      scroll(e);
+      if (e.target.closest("ul>li>a")) {
+        toggleMenu();
+      }
+    }
+  });
 };
 export default menu;

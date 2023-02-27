@@ -32,11 +32,8 @@ const modal = () => {
 
   popupBtns.forEach((item) => item.addEventListener("click", openPopup));
 
-  popup.addEventListener("click", (event) => {
-    if (
-      event.target.classList.contains("popup-close") ||
-      event.target === popup
-    ) {
+  popup.addEventListener("click", (e) => {
+    if (e.target.classList.contains("popup-close") || e.target === popup) {
       openPopup();
     }
   });
