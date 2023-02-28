@@ -12,4 +12,4 @@ modal();
 calculator();
 forms();
 tabs();
-slider();
+slider(".portfolio-content", ".portfolio-item");
