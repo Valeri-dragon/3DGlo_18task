@@ -29,7 +29,7 @@ const timer = (deadline) => {
     timerMinutes.textContent = addZero(getTime.minutes);
     timerSeconds.textContent = addZero(getTime.seconds);
     timerDays.setAttribute("id", "timer-days");
-    timerDays.textContent = `${getTime.days} Дн.`;
+    timerDays.textContent = `${addZero(getTime.days)} Дн.`;
     timer.prepend(timerDays);
     clearInterval(idInterval);
     if (getTime.timeRemaining > 0) {

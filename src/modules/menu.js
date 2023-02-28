@@ -15,7 +15,7 @@ const menu = () => {
   body.addEventListener("click", (e) => {
     if (e.target.matches(".close-btn") || e.target.closest(".menu")) {
       toggleMenu();
-    } else if (e.target.tagName === "A") {
+    } else if (e.target.id === "link_service" || e.target.closest("ul>li>a")) {
       scroll(e);
       if (e.target.closest("ul>li>a")) {
         toggleMenu();

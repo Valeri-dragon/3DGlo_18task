@@ -4,10 +4,12 @@ import modal from "./modules/modal";
 import calculator from "./modules/calculator";
 import forms from "./modules/forms";
 import tabs from "./modules/tabs";
+import slider from "./modules/slider";
 
-timer("28 febrary 2023");
+timer("7 march 2023");
 menu();
 modal();
 calculator();
 forms();
-tabs()
+tabs();
+slider();
