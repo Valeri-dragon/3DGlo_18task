@@ -12,7 +12,6 @@ const menu = () => {
     } else {
       ID = e.target.parentNode.getAttribute("href").substr(1);
     }
-
     document
       .getElementById(ID)
       .scrollIntoView({ behavior: "smooth", block: "start" });
@@ -25,6 +24,8 @@ const menu = () => {
     } else if (e.target.closest("ul>li>a")) {
       scroll(e);
       toggleMenu();
+    } else if (e.target !== menu.closest(".active-menu")) {
+      menu.classList.remove("active-menu");
     }
   });
 };
