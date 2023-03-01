@@ -24,6 +24,8 @@ const menu = () => {
     } else if (e.target.closest("ul>li>a")) {
       scroll(e);
       toggleMenu();
+    } else if (e.target !== menu.closest(".active-menu")) {
+      menu.classList.remove("active-menu");
     }
   });
 };
