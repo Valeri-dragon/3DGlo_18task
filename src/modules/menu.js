@@ -2,9 +2,7 @@ const menu = () => {
   const body = document.querySelector("body");
   const menu = document.querySelector("menu");
   let ID;
-  const toggleMenu = () => {
-    menu.classList.toggle("active-menu");
-  };
+
   const scroll = (e) => {
     e.preventDefault();
     if (e.target.hasAttributes("href") && e.target.tagName === "A") {
@@ -16,17 +14,22 @@ const menu = () => {
       .getElementById(ID)
       .scrollIntoView({ behavior: "smooth", block: "start" });
   };
-  body.addEventListener("click", (e) => {
-    if (e.target.matches(".close-btn") || e.target.closest(".menu")) {
-      toggleMenu();
-    } else if (e.target.closest("#link_service")) {
-      scroll(e);
-    } else if (e.target.closest("ul>li>a")) {
-      scroll(e);
-      toggleMenu();
-    } else if (e.target !== menu.closest(".active-menu")) {
-      menu.classList.remove("active-menu");
-    }
-  });
+
+  const toggleMenu = () => {
+    body.addEventListener("click", (e) => {
+      if (e.target.matches(".close-btn") || e.target.closest(".menu")) {
+        menu.classList.toggle("active-menu");
+      } else if (e.target.closest("#link_service")) {
+        scroll(e);
+      } else if (e.target.closest("ul>li>a")) {
+        scroll(e);
+        menu.classList.remove("active-menu");
+      } else if (e.target !== menu.closest(".active-menu")) {
+        menu.classList.remove("active-menu");
+      }
+    });
+  };
+
+  toggleMenu();
 };
 export default menu;
