@@ -9,7 +9,7 @@ import slider from "./modules/slider";
 timer("7 march 2023");
 menu();
 modal();
-calculator();
+calculator(100);
 forms();
 tabs();
 slider();
