@@ -1,3 +1,4 @@
+import animateNum from "./animateNum";
 const calculator = (price = 100) => {
   const calcBlock = document.querySelector(".calc-block");
   const calcType = document.querySelector(".calc-type");
@@ -68,6 +69,7 @@ const calculator = (price = 100) => {
     if (calcType.value && calcSquare.value) {
       totalPrice =
         price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue;
+      animateNum(totalPrice, total);
     } else {
       totalPrice = 0;
     }
