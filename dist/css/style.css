@@ -1,3 +1,24 @@
+*{
+  margin: 0;
+  padding: 0;
+}
 body{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   background-color: #96ef19;
+  box-sizing: border-box;
+}
+.block{
+  position: absolute;
+  height: 100px;
+  width: 200px;
+     max-width: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0px -1px 20px rgba(0, 255, 81, 0.03),0px 16px 28px rgba(0,0,0,0.04),0px 2px 10px rgba(0,0,0,0.02),0px 0px 1px rgba(0,0,0,0.04);
+    transition: all .3s ease;
+    left: 0;
+    top: 0;
 }
