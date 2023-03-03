@@ -1,32 +1,26 @@
+import { animate } from "./helpers";
 const modal = () => {
   const popupBtns = document.querySelectorAll(".popup-btn");
   const popup = document.querySelector(".popup ");
   const popupContent = popup.querySelector(".popup-content");
 
-  let pos = 0;
-
-  const myAnimation = () => {
-    pos++;
-    if (popup.clientWidth > 768) {
-      popupContent.style.left = (pos * popup.clientWidth) / 150 + "px";
-      popupContent.style.opacity = pos * 0.02;
-      if (pos < 50) {
-        requestAnimationFrame(myAnimation);
-      }
-    } else {
-      popupContent.style.opacity = "";
-      popupContent.style.left = "";
-    }
-  };
-
   const openPopup = () => {
     if (!popup.style.display) {
       popup.style.display = "flex";
-      requestAnimationFrame(myAnimation);
+      if (popup.clientWidth > 768) {
+        animate({
+          duration: 1000,
+          timing(x, timeFraction) {
+            return Math.pow(timeFraction, 2) * ((x + 1) * timeFraction - x);
+          },
+          draw(progress) {
+            popupContent.style.left = progress * 35.5 + "%";
+            popupContent.style.top = progress * 25 + "%";
+          },
+        });
+      }
     } else {
-      pos = 0;
       popup.style.display = "";
-      cancelAnimationFrame(myAnimation);
     }
   };
 

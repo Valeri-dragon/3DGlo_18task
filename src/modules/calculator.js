@@ -1,3 +1,4 @@
+import { animate } from "./helpers";
 const calculator = (price = 100) => {
   const calcBlock = document.querySelector(".calc-block");
   const calcType = document.querySelector(".calc-type");
@@ -71,7 +72,16 @@ const calculator = (price = 100) => {
     } else {
       totalPrice = 0;
     }
-    total.textContent = totalPrice;
+
+    animate({
+      duration: 1000,
+      timing(x, timeFraction) {
+        return Math.pow(0.25, timeFraction) * 4;
+      },
+      draw(progress) {
+        total.textContent = Math.floor(totalPrice * progress);
+      },
+    });
   };
 
   const validate = (e) => {
