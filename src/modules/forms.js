@@ -27,13 +27,16 @@ const forms = () => {
     e.addEventListener("input", (ev) => {
       removeError();
 
-      if (!/[а-я-\s]+/gi.test(ev.target.value.trim())) {
+      if (!/[а-яё]+/gi.test(ev.target.value.trim())) {
         str = "Можно использовать кириллицу, пробел или дефис";
         error(e, str);
         ev.target.value = ev.target.value.replace(/[a-z\s]+/gi, "");
+        ev.target.classList.add("error");
       } else {
         removeError();
-        ev.target.value;
+        ev.target.value = ev.target.value.replace(/[a-z\s]+/gi, " ");
+        ev.target.classList.remove("error");
+        ev.target.classList.add("success");
       }
     });
   };
@@ -46,10 +49,12 @@ const forms = () => {
         )
       ) {
         removeError();
-        ev.target.value;
+        ev.target.classList.remove("error");
+        ev.target.classList.add("success");
       } else {
         error(e, str);
         str = "Введите верный e-mail";
+        ev.target.classList.add("error");
       }
     });
   };
@@ -62,10 +67,12 @@ const forms = () => {
         )
       ) {
         removeError();
-        ev.target.value;
+        ev.target.classList.remove("error");
+        ev.target.classList.add("success");
       } else {
         error(e, str);
         str = "Номер должен начинаться с +7, 8 или +375";
+        ev.target.classList.add("error");
       }
     });
   };
