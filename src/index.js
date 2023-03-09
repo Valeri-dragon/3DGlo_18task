@@ -32,7 +32,7 @@ sendForm({
       id: "total",
     },
   ],
-})
+});
 sendForm({
   formId: "form3",
   someElem: [

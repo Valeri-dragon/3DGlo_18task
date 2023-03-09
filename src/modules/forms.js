@@ -6,11 +6,14 @@ const forms = () => {
   let str;
   let span = document.createElement("span");
 
-  const removeError = () => {
+  const removeError = (e) => {
     span.remove();
+    e.target.classList.remove("error");
+    e.target.classList.add("success");
+    e.target.style.border = `1px solid green`;
   };
 
-  const error = (e, str) => {
+  const error = (e, ev, str) => {
     span.style.display = "block";
     span.classList.add("error");
     span.style.color = "red";
@@ -20,23 +23,30 @@ const forms = () => {
     span.style.padding = `5px`;
     span.style.background = `#fff`;
     span.textContent = str;
+    ev.target.classList.add("error");
+    ev.target.style.border = `1px solid red`;
     e.before(span);
   };
 
   const validateCyrillic = (e) => {
     e.addEventListener("input", (ev) => {
-      removeError();
+      removeError(ev);
 
       if (!/[а-яё]+/gi.test(ev.target.value.trim())) {
         str = "Можно использовать кириллицу, пробел или дефис";
-        error(e, str);
-        ev.target.value = ev.target.value.replace(/[a-z\s]+/gi, "");
-        ev.target.classList.add("error");
+        error(e, ev, str);
+        ev.target.value = ev.target.value.replace(/[a-z\s\d]+/gi, "");
+      } else if (
+        ev.target !== userMessageInput &&
+        ev.target.hasAttributes(["name=user_name"]) &&
+        ev.target.value.length <= 1
+      ) {
+        str = "Имя не может быть меньше 2 букв";
+
+        error(e, ev, str);
       } else {
-        removeError();
-        ev.target.value = ev.target.value.replace(/[a-z\s]+/gi, " ");
-        ev.target.classList.remove("error");
-        ev.target.classList.add("success");
+        removeError(ev);
+        ev.target.value = ev.target.value.replace(/[a-z\s\d]+/gi, "");
       }
     });
   };
@@ -48,13 +58,11 @@ const forms = () => {
           ev.target.value
         )
       ) {
-        removeError();
-        ev.target.classList.remove("error");
-        ev.target.classList.add("success");
+        removeError(ev);
       } else {
-        error(e, str);
         str = "Введите верный e-mail";
-        ev.target.classList.add("error");
+        ev.target.value = ev.target.value.replace(/[^\w-@\.\!\~\*\'\$]/g, "");
+        error(e, ev, str);
       }
     });
   };
@@ -66,13 +74,11 @@ const forms = () => {
           ev.target.value
         )
       ) {
-        removeError();
-        ev.target.classList.remove("error");
-        ev.target.classList.add("success");
+        removeError(ev);
       } else {
-        error(e, str);
         str = "Номер должен начинаться с +7, 8 или +375";
-        ev.target.classList.add("error");
+        ev.target.value = ev.target.value.replace(/[^\+\(\)\-_\d]/gi, "");
+        error(e, ev, str);
       }
     });
   };
@@ -91,8 +97,11 @@ const forms = () => {
     validatePhone(item);
   });
 
-  userMessageInput.addEventListener("input", () => {
+  userMessageInput.addEventListener("input", (e) => {
     validateCyrillic(userMessageInput);
+    setTimeout(() => {
+      removeError(e);
+    }, 1500);
   });
 };
 export default forms;

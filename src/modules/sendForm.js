@@ -4,13 +4,15 @@ const sendForm = ({ formId, someElem = [] }) => {
   const loadText = "Загрузка...";
   const errorText = "Ошибка...";
   const successText = "Спасибо! Наш менеджер с вами свяжется.";
+  const inCorrectValue = "Введите корректные данные";
   statusBlock.style.color = "azure";
   const validate = (list) => {
     let success = true;
 
     list.forEach((input) => {
-      if (!input.classList.contains("success")) {
+      if (input.classList.contains("error")) {
         success = false;
+        statusBlock.textContent = inCorrectValue;
       }
     });
     return success;
@@ -37,10 +39,13 @@ const sendForm = ({ formId, someElem = [] }) => {
     formData.forEach((val, key) => {
       formBody[key] = val;
     });
+
     someElem.forEach((elem) => {
       const element = document.getElementById(elem.id);
       if (elem.type === "block") {
-        formBody[elem.id] = element.textContent;
+        if (element.textContent !== "0") {
+          formBody[elem.id] = element.textContent;
+        }
       }
     });
 
