@@ -6,28 +6,9 @@ const calculator = (price = 100) => {
   const calcCount = document.querySelector(".calc-count");
   const calcDay = document.querySelector(".calc-day");
   const total = document.getElementById("total");
-  const calcItem = document.querySelectorAll(".calc-item");
-  let unbCount;
+
   let str;
   let span = document.createElement("span");
-  const item = () => {
-    calcType.value == "";
-    unbCount = 0;
-    if (calcType.value !== "") {
-      unbCount = +1;
-    }
-    calcItem.forEach((input, index) => {
-      if (index !== 0) {
-        input.disabled = true;
-      }
-      if (index === unbCount) {
-        input.disabled = false;
-        if (input.value !== "") {
-          unbCount = index + 1;
-        }
-      }
-    });
-  };
 
   const error = (e, str) => {
     span.style.display = "block";
@@ -42,14 +23,11 @@ const calculator = (price = 100) => {
     e.before(span);
   };
   const removeError = () => {
-    item();
     str = "";
     span.remove();
   };
 
   const countCalc = () => {
-    removeError();
-
     const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
     const calcSquareValue = +calcSquare.value;
 
@@ -76,42 +54,40 @@ const calculator = (price = 100) => {
     animate({
       duration: 1000,
       timing(x, timeFraction) {
-        return Math.pow(0.25, timeFraction) * 4;
+        return timeFraction;
       },
       draw(progress) {
-        total.textContent = Math.floor(totalPrice * progress);
+        total.textContent = Math.round(totalPrice * progress);
       },
     });
   };
 
   const validate = (e) => {
-    item();
     calcBlock.addEventListener("input", (ev) => {
+     
       ev.target.value = ev.target.value.trim();
-      if (
-        (/\D+/.test(ev.target.value) && ev.target !== calcType) ||
-        ev.target.value === "0"
-      ) {
+      if (ev.target === calcSquare && ev.target.value === "0") {
         ev.target.value = ev.target.value.replace(/\D+/, "");
         str = "Введите число больше 0";
+        ev.target.value = "";
+        ev.placeholder;
         error(e, str);
-      } else if (ev.target === calcType && ev.target.value === "") {
+      } else if (/\D+/.test(ev.target.value) && ev.target !== calcType) {
+        ev.target.value = ev.target.value.replace(/\D+/, "");
+      } else if (calcType && calcType.value === "") {
         str = "Нужен объект";
         error(e, str);
+      } else if (calcSquare && calcSquare.value === "") {
+        str = "Укажите общую площадь";
+        error(e, str);
+      } else {
+        removeError();
+        
       }
-      ev.target.addEventListener("blur", () => {
-        if (ev.target.value.trim() == "" || ev.target.value === "0") {
-          ev.target.value = "";
-          total.textContent = 0;
-          error(e, str);
-          item();
-        } else {
-          countCalc();
-        }
-      });
+      countCalc();
     });
   };
 
-  validate(calcBlock);
+ validate(calcBlock);
 };
 export default calculator;
