@@ -18,8 +18,14 @@ const menu = () => {
   const toggleMenu = () => {
     body.addEventListener("click", (e) => {
       if (e.target.matches(".close-btn") || e.target.closest(".menu")) {
+        if (e.target.hasAttributes(["href=close"])) {
+          e.preventDefault();
+        }
         menu.classList.toggle("active-menu");
       } else if (e.target.closest("#link_service")) {
+        if (menu.classList.contains("active-menu")) {
+          menu.classList.remove("active-menu");
+        }
         scroll(e);
       } else if (e.target.closest("ul>li>a")) {
         scroll(e);
