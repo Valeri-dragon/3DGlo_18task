@@ -30,8 +30,11 @@ const timer = (deadline) => {
     timerSeconds.textContent = addZero(getTime.seconds);
     timerDays.setAttribute("id", "timer-days");
     timerDays.textContent = `${addZero(getTime.days)} Дн.`;
-    timer.prepend(timerDays);
-    clearInterval(idInterval);
+    if (getTime.days == 0) {
+      timerDays.textContent = "";
+    }
+     timer.prepend(timerDays);
+   
     if (getTime.timeRemaining > 0) {
       idInterval = setInterval(updateClock, 1000);
     } else if (getTime.timeRemaining <= 0) {
@@ -39,6 +42,7 @@ const timer = (deadline) => {
       timerHours.textContent = addZero(0);
       timerMinutes.textContent = addZero(0);
       timerSeconds.textContent = addZero(0);
+       clearInterval(idInterval);
     }
   };
 
