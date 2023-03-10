@@ -36,7 +36,6 @@ const timer = (deadline) => {
     timer.prepend(timerDays);
 
     if (getTime.timeRemaining <= 0) {
-      timerDays.textContent = `0 Дн.`;
       timerHours.textContent = addZero(0);
       timerMinutes.textContent = addZero(0);
       timerSeconds.textContent = addZero(0);
@@ -44,6 +43,7 @@ const timer = (deadline) => {
     }
   };
   if (deadline) {
+    updateClock()
     idInterval = setInterval(updateClock, 1000);
   }
 };
