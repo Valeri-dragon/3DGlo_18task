@@ -64,6 +64,10 @@ const sendForm = ({ formId, someElem = [] }) => {
             input.style.border = "";
             input.classList.remove("success");
           });
+          setTimeout(()=>{
+form.closest(".popup").style.display = "";
+          }, 2500)
+          
         })
         .catch((error) => {
           statusBlock.textContent = errorText;
