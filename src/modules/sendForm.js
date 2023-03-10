@@ -1,4 +1,4 @@
-import { removeMessage } from "./helpers";
+import {removeMessage} from "./helpers"
 const sendForm = ({ formId, someElem = [] }) => {
   const form = document.getElementById(formId);
   const statusBlock = document.createElement("div");
@@ -14,7 +14,7 @@ const sendForm = ({ formId, someElem = [] }) => {
       if (input.classList.contains("error")) {
         success = false;
         statusBlock.textContent = inCorrectValue;
-        removeMessage(statusBlock);
+        removeMessage(statusBlock)
       }
     });
     return success;
@@ -39,9 +39,11 @@ const sendForm = ({ formId, someElem = [] }) => {
     form.append(statusBlock);
 
     formData.forEach((val, key) => {
-      if (val !== "") {
-        formBody[key] = val;
+     
+      if(val !==''){
+formBody[key] = val;
       }
+      
     });
 
     someElem.forEach((elem) => {
@@ -57,16 +59,16 @@ const sendForm = ({ formId, someElem = [] }) => {
       sendData(formBody)
         .then((data) => {
           statusBlock.textContent = successText;
-          removeMessage(statusBlock);
+removeMessage(statusBlock)
           formElements.forEach((input) => {
             input.value = "";
-            input.style.border = "";
-            input.classList.remove("success");
+            input.style.border=""
+            input.classList.remove("success")
           });
         })
         .catch((error) => {
           statusBlock.textContent = errorText;
-          removeMessage(statusBlock);
+          removeMessage(statusBlock)
         });
     }
   };
