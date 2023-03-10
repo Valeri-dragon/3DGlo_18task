@@ -64,9 +64,12 @@ const sendForm = ({ formId, someElem = [] }) => {
             input.style.border = "";
             input.classList.remove("success");
           });
-          setTimeout(()=>{
+if (form.closest(".popup")){
+ setTimeout(() => {
 form.closest(".popup").style.display = "";
-          }, 2500)
+ }, 2500);
+}
+ 
           
         })
         .catch((error) => {
