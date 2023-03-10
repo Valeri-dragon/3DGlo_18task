@@ -2,7 +2,7 @@ const slider = () => {
   const sliderBlock = document.querySelector(".portfolio-content");
   const slides = document.querySelectorAll(".portfolio-item");
 
-  let dots = document.querySelectorAll(".dot");
+  let dots = [];
   let timeInterval = 3500;
   let currentSlide = 0;
   let idInterval;
@@ -12,10 +12,10 @@ const slider = () => {
     elems.forEach((item, index) => {
       const li = document.createElement("li");
       li.classList.add("dot");
+      dots.push(ul.appendChild(li));
       if (index == 0) {
         li.classList.add("dot-active");
       }
-      ul.append(li);
     });
     block.append(ul);
   };
@@ -27,11 +27,9 @@ const slider = () => {
     elems[index].classList.add(strClass);
   };
   const autoSlide = () => {
-    dots = document.querySelectorAll(".dot");
     prevSlide(slides, currentSlide, "portfolio-item-active");
     prevSlide(dots, currentSlide, "dot-active");
     currentSlide++;
-
     if (currentSlide >= slides.length) {
       currentSlide = 0;
     }
@@ -41,6 +39,7 @@ const slider = () => {
   const startSlide = (timer = 1500) => {
     idInterval = setInterval(autoSlide, timer);
   };
+
   const stopSlide = () => {
     clearInterval(idInterval);
   };

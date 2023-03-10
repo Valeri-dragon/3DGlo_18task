@@ -54,15 +54,16 @@ const forms = () => {
   const validateEmail = (e) => {
     e.addEventListener("input", (ev) => {
       if (
-        /(([\-\.\_\~\*\'\d\w]+)(@)([\w]+\.)+([\w]{2,4}))/gi.test(
+        !/(([\-\.\_\~\*\'\d\w]+)(@)([\w]+\.)+([\w]{2,4}))/gi.test(
           ev.target.value
-        )
+        ) ||
+        ev.target.value.trim() === ""
       ) {
-        removeError(ev);
-      } else {
         str = "Введите верный e-mail";
         ev.target.value = ev.target.value.replace(/[^\w-@\.\!\~\*\'\$]/g, "");
         error(e, ev, str);
+      } else {
+        removeError(ev);
       }
     });
   };
