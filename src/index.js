@@ -1,5 +1,6 @@
 import timer from "./modules/timer";
 import menu from "./modules/menu";
+import scrollSmooth from "./modules/scrollSmooth";
 import modal from "./modules/modal";
 import calculator from "./modules/calculator";
 import forms from "./modules/forms";
@@ -10,6 +11,7 @@ const deadline = new Date();
 deadline.setDate(deadline.getDate() + 2);
 timer(deadline);
 menu();
+scrollSmooth()
 modal();
 calculator(100);
 forms();
