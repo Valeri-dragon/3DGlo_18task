@@ -10,4 +10,9 @@ const animate = ({ timing, draw, duration }) => {
     }
   });
 };
-export { animate };
+const removeMessage = (elem)=>{
+ setTimeout(()=>{
+elem.textContent = "";
+ },5000) 
+}
+export { animate,removeMessage };
