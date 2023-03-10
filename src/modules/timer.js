@@ -33,19 +33,18 @@ const timer = (deadline) => {
     if (getTime.days == 0) {
       timerDays.textContent = "";
     }
-     timer.prepend(timerDays);
-   
-    if (getTime.timeRemaining > 0) {
-      idInterval = setInterval(updateClock, 1000);
-    } else if (getTime.timeRemaining <= 0) {
+    timer.prepend(timerDays);
+
+    if (getTime.timeRemaining <= 0) {
       timerDays.textContent = `0 Дн.`;
       timerHours.textContent = addZero(0);
       timerMinutes.textContent = addZero(0);
       timerSeconds.textContent = addZero(0);
-       clearInterval(idInterval);
+      clearInterval(idInterval);
     }
   };
-
-  updateClock();
+  if (deadline) {
+    idInterval = setInterval(updateClock, 1000);
+  }
 };
 export default timer;

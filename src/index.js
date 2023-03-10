@@ -6,8 +6,9 @@ import forms from "./modules/forms";
 import tabs from "./modules/tabs";
 import slider from "./modules/slider";
 import sendForm from "./modules/sendForm";
-
-timer("10 march 2023");
+const deadline = new Date();
+deadline.setDate(deadline.getDate() + 2);
+timer(deadline);
 menu();
 modal();
 calculator(100);
@@ -20,10 +21,9 @@ sendForm({
     {
       type: "block",
       id: "total",
-      
     },
   ],
-})
+});
 sendForm({
   formId: "form2",
   someElem: [
