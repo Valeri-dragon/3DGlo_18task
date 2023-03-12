@@ -6,6 +6,7 @@ const closeBtn = document.querySelector(".close-btn");
     e.target.matches(".close-btn") &&  menu.classList.remove("active-menu");
     e.target.closest("menu>ul>li>a") && menu.classList.remove("active-menu"); 
     e.target.closest("#link_service") && menu.classList.remove("active-menu");
+    !e.target.closest(".menu") && menu.classList.remove("active-menu");
     if (e.target === closeBtn) {
        e.preventDefault();
      }
